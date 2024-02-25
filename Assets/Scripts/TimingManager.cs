@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class TimingManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioSource audioSource;
+
+    public float intervalSpeed;
+    
+    public float minTime;
+    public float maxTime;
 
     // Update is called once per frame
     void Update()
