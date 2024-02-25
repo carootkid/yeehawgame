@@ -203,8 +203,9 @@ GameObject:
   - component: {fileID: 64693383}
   - component: {fileID: 64693382}
   - component: {fileID: 64693381}
+  - component: {fileID: 64693384}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +224,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2003390296}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &64693381
 BoxCollider:
@@ -296,6 +297,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64693379}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &64693384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64693379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5e159eb8da8c3469a54bc8f44fff13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alive: 1
+  timeToDraw: 0.5
+  timingManager: {fileID: 0}
 --- !u!1 &77121802
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +442,7 @@ MonoBehaviour:
   set: {fileID: 409779290}
   draw: {fileID: 2140923064}
   start: 0
+  shouldDraw: 0
 --- !u!82 &84850940
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1939,7 +1956,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 246281880}
-  - {fileID: 64693380}
   m_Father: {fileID: 1970803722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140923064
@@ -1988,6 +2004,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 409824539}
+  - {fileID: 64693380}
   - {fileID: 1970803722}
   - {fileID: 84850938}
   - {fileID: 1531712182}
