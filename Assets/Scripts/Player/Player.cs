@@ -5,18 +5,54 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    public bool alive = true;
     public bool canShoot = true;
+
+    public TimingManager timingManager;
+
+    public bool shot = false;
+
+    public enemy enemyScript;
+
+    public AudioSource audioSource;
+    
+    public AudioClip unholsterSound;
+    public AudioClip shootSound;
     
     void Update()
-    {   if (Input.GetMouseButtonDown(1))
+    {   if (Input.GetMouseButtonDown(1) && alive)
         {
-            Debug.Log("UnHolstering.");
+            if(timingManager.shouldDraw = true)
+            {
+                Debug.Log("UnHolstering.");
+            } else {
+                alive = false;
+                Debug.Log("drew too early.");
+            }
         }
 
-        if (canShoot && Input.GetMouseButtonDown(0) && Input.GetMouseButton(1))
+        if (alive && canShoot && Input.GetMouseButtonDown(0) && Input.GetMouseButton(1))
         {
             Debug.Log("Shot");
             canShoot = false;
+            shot = true;
+        }
+
+        if(timingManager.shouldDraw == true)
+        {
+            if(shot)
+            {
+                enemyScript.alive = false;
+            }
+        } 
+
+        if(shot){
+            shot = false;
+        }
+
+        if(!alive)
+        {
+            Debug.Log("player is alive'nt");
         }
     }
 }
