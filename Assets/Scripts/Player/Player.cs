@@ -22,9 +22,10 @@ public class Player : MonoBehaviour
     void Update()
     {   if (Input.GetMouseButtonDown(1) && alive)
         {
-            if(timingManager.shouldDraw = true)
+            if(timingManager.shouldDraw == true)
             {
                 Debug.Log("UnHolstering.");
+                audioSource.PlayOneShot(unholsterSound);
             } else {
                 alive = false;
                 Debug.Log("drew too early.");
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         if (alive && canShoot && Input.GetMouseButtonDown(0) && Input.GetMouseButton(1))
         {
             Debug.Log("Shot");
+            audioSource.PlayOneShot(shootSound);
             canShoot = false;
             shot = true;
         }
