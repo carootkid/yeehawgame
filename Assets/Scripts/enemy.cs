@@ -14,6 +14,8 @@ public class enemy : MonoBehaviour
 
     public Player player;
 
+    public Animator playerAnimator;
+
     void Start()
     {
         

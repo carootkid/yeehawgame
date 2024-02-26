@@ -20,6 +20,8 @@ public class TimingManager : MonoBehaviour
     public GameObject set;
     public GameObject draw;
 
+    public bool gameStarted = false;
+
     public bool start = false;
     public bool shouldDraw = false;
 
@@ -41,6 +43,8 @@ public class TimingManager : MonoBehaviour
             gameCam.SetActive(true);
             start = true;
             StartCoroutine(StartCountdown());
+
+            gameStarted = true;
         }
     }
 
