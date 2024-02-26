@@ -18,13 +18,18 @@ public class Player : MonoBehaviour
     
     public AudioClip unholsterSound;
     public AudioClip shootSound;
+
+    public Animator animator;
+
+    private bool alreadyDead;
     
     void Update()
-    {   if (Input.GetMouseButtonDown(1) && alive)
+    {   if (Input.GetMouseButtonDown(1) && alive && timingManager.gameStarted)
         {
             if(timingManager.shouldDraw == true)
             {
                 Debug.Log("UnHolstering.");
+                animator.SetTrigger("UnHolster");
                 audioSource.PlayOneShot(unholsterSound);
             } else {
                 alive = false;
@@ -32,7 +37,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (alive && canShoot && Input.GetMouseButtonDown(0) && Input.GetMouseButton(1))
+        if (timingManager.gameStarted && alive && canShoot && Input.GetMouseButtonDown(0) && Input.GetMouseButton(1))
         {
             Debug.Log("Shot");
             audioSource.PlayOneShot(shootSound);
@@ -50,11 +55,22 @@ public class Player : MonoBehaviour
 
         if(shot){
             shot = false;
+            animator.SetTrigger("shoot");
+            StartCoroutine(WinAnimation());
         }
 
-        if(!alive)
+        if(!alive && !alreadyDead)
         {
             Debug.Log("player is alive'nt");
+            animator.SetTrigger("diesnormaly");
+            alreadyDead = true;
         }
+    }
+
+    public IEnumerator WinAnimation()
+    {
+        yield return new WaitForSeconds(1);
+
+        animator.SetTrigger("win");
     }
 }
