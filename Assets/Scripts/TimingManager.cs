@@ -25,6 +25,9 @@ public class TimingManager : MonoBehaviour
     public bool start = false;
     public bool shouldDraw = false;
 
+    public bool won = false;
+    public bool lost = false;
+
     private void Start() {
         waitCam.SetActive(true);
         gameCam.SetActive(false);
@@ -45,6 +48,15 @@ public class TimingManager : MonoBehaviour
             StartCoroutine(StartCountdown());
 
             gameStarted = true;
+        }
+
+        Animator gameCamAnimator = gameCam.GetComponent<Animator>();
+
+        if(won){
+            gameCamAnimator.SetTrigger("Won");
+        } else if(lost)
+        {
+            gameCamAnimator.SetTrigger("Lost");
         }
     }
 
