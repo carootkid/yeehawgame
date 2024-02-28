@@ -1185,6 +1185,8 @@ MonoBehaviour:
   gameStarted: 0
   start: 0
   shouldDraw: 0
+  won: 0
+  lost: 0
 --- !u!82 &409810720179536812
 AudioSource:
   m_ObjectHideFlags: 0
