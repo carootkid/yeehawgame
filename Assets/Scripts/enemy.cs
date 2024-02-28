@@ -14,7 +14,9 @@ public class enemy : MonoBehaviour
 
     public Player player;
 
-    public Animator playerAnimator;
+    public Animator animator;
+
+    private bool alreadyPlayedDeathAnimation = false;
 
     void Start()
     {
@@ -31,6 +33,14 @@ public class enemy : MonoBehaviour
         if(!alive){
             StopCoroutine(Shoot());
             Debug.Log("enemy Dies");
+            
+
+            if(!alreadyPlayedDeathAnimation)
+            {
+                animator.SetTrigger("Die");
+                alreadyPlayedDeathAnimation = true;
+            }
+            
         }
     }
     
