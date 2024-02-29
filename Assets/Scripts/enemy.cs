@@ -33,12 +33,15 @@ public class enemy : MonoBehaviour
         if(!alive){
             StopCoroutine(Shoot());
             Debug.Log("enemy Dies");
+
+            timingManager.won = true;
             
 
             if(!alreadyPlayedDeathAnimation)
             {
                 animator.SetTrigger("Die");
                 alreadyPlayedDeathAnimation = true;
+                
             }
             
         }
@@ -55,6 +58,7 @@ public class enemy : MonoBehaviour
             Debug.Log("Player FUcking DIes");
 
             player.alive = false;
+            timingManager.lost = true;
         } else {
             Debug.Log("cant shoot already dead :(");
         }

@@ -28,6 +28,10 @@ public class TimingManager : MonoBehaviour
     public bool won = false;
     public bool lost = false;
 
+    private bool alreadyPlayedWinLoseAnim = false;
+
+    private Animator gameCamAnimator;
+
     private void Start() {
         waitCam.SetActive(true);
         gameCam.SetActive(false);
@@ -36,6 +40,9 @@ public class TimingManager : MonoBehaviour
         ready.SetActive(false);
         set.SetActive(false);
         draw.SetActive(false);
+
+        
+        gameCamAnimator = gameCam.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -50,13 +57,14 @@ public class TimingManager : MonoBehaviour
             gameStarted = true;
         }
 
-        Animator gameCamAnimator = gameCam.GetComponent<Animator>();
 
-        if(won){
-            gameCamAnimator.SetTrigger("Won");
-        } else if(lost)
+        if(won && !alreadyPlayedWinLoseAnim){
+            StartCoroutine(StartWinAnim());
+            alreadyPlayedWinLoseAnim = true;
+        } else if(lost && !alreadyPlayedWinLoseAnim)
         {
-            gameCamAnimator.SetTrigger("Lost");
+            StartCoroutine(StartLoseAnim());
+            alreadyPlayedWinLoseAnim = true;
         }
     }
 
@@ -89,5 +97,17 @@ public class TimingManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         
         draw.SetActive(false);
+    }
+
+    public IEnumerator StartWinAnim(){
+        yield return new WaitForSeconds(1);
+
+        gameCamAnimator.SetTrigger("Won");
+    }
+
+    public IEnumerator StartLoseAnim(){
+        yield return new WaitForSeconds(1);
+
+        gameCamAnimator.SetTrigger("Lost");
     }
 }
