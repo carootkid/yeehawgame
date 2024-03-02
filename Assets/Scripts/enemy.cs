@@ -18,6 +18,16 @@ public class enemy : MonoBehaviour
 
     private bool alreadyPlayedDeathAnimation = false;
 
+    public bool AttackAnimation = true;
+
+    public AudioSource enemySource;
+
+
+    public AudioClip[] countdownClips;
+    public AudioClip[] deathClips;
+
+    private bool alreadySpoke = false;
+
     void Start()
     {
         
@@ -26,11 +36,25 @@ public class enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(timingManager.start && alive && !alreadySpoke){
+            
+            int randomInt = Random.Range(0, countdownClips.Length);
+            Debug.Log(randomInt);
+            AudioClip speakClip = countdownClips[randomInt];
+
+            enemySource.PlayOneShot(speakClip);
+
+            alreadySpoke = true;
+        }
+
         if(alive && timingManager.shouldDraw && !alreadyShot){
             StartCoroutine(Shoot());
         }
 
         if(!alive){
+
+            
+
             StopCoroutine(Shoot());
             Debug.Log("enemy Dies");
 
@@ -41,6 +65,15 @@ public class enemy : MonoBehaviour
             {
                 animator.SetTrigger("Die");
                 alreadyPlayedDeathAnimation = true;
+
+                
+                enemySource.Stop();
+
+                int randomInt = Random.Range(0, deathClips.Length);
+                Debug.Log(randomInt);
+                AudioClip deathClip = deathClips[randomInt];
+
+                enemySource.PlayOneShot(deathClip);
                 
             }
             
@@ -53,12 +86,18 @@ public class enemy : MonoBehaviour
 
         yield return new WaitForSeconds(timeToDraw);
 
+        
+
         if(alive)
         {
             Debug.Log("Player FUcking DIes");
 
             player.alive = false;
             timingManager.lost = true;
+
+            if(AttackAnimation)
+            animator.SetTrigger("ShootPlayer");
+            
         } else {
             Debug.Log("cant shoot already dead :(");
         }
