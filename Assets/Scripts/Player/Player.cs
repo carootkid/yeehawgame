@@ -22,9 +22,11 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     private bool alreadyDead;
+
+    private bool canHolster = true;
     
     void Update()
-    {   if (Input.GetMouseButtonDown(1) && alive && timingManager.gameStarted)
+    {   if (Input.GetMouseButtonDown(1) && alive && timingManager.gameStarted && canHolster)
         {
             if(timingManager.shouldDraw == true)
             {
@@ -37,7 +39,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (timingManager.gameStarted && alive && canShoot && Input.GetMouseButtonDown(0) && Input.GetMouseButton(1))
+        if (timingManager.gameStarted && alive && canShoot && Input.GetMouseButtonDown(0) && Input.GetMouseButton(1) && canHolster)
         {
             Debug.Log("Shot");
             audioSource.PlayOneShot(shootSound);
@@ -59,7 +61,7 @@ public class Player : MonoBehaviour
             StartCoroutine(WinAnimation());
         }
 
-        if(!alive && !alreadyDead)
+        if(!alive && !alreadyDead && canHolster)
         {
             Debug.Log("player is alive'nt");
             animator.SetTrigger("diesnormaly");
@@ -72,5 +74,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         animator.SetTrigger("win");
+
+        canHolster = false;
     }
 }
